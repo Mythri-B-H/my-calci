@@ -3,7 +3,7 @@ Unit Tests for Calculator
 Students start with 2 passing tests, then add more
 """
 import pytest
-from src.calculator import add, divide, subtract, multiply
+from src.calculator import add, subtract, multiply, divide, power, sqrt
 
 class TestBasicOperations:
     """Test basic arithmetic operations"""
@@ -52,3 +52,34 @@ class TestMultiplyDivideWithValidation:
         with pytest.raises(ValueError, match="Cannot divide"):
             divide(10, 0)
 # TODO: Students will add TestMultiplyDivide class
+
+class TestPower:
+    """Test power function."""
+
+    def test_power_numbers(self):
+        assert power(2, 3) == 8
+        assert power(5, 2) == 25
+        assert power(2, 0) == 1
+
+    def test_power_invalid_input(self):
+        with pytest.raises(TypeError, match="Both arguments must be numbers"):
+            power("2", 3)
+
+class TestSquareRoot:
+    """Test square root function."""
+
+    def test_sqrt_numbers(self):
+        assert sqrt(25) == 5.0
+        assert sqrt(81) == 9.0
+        assert sqrt(0) == 0.0
+
+    def test_sqrt_invalid_input(self):
+        with pytest.raises(TypeError, match="Argument must be a number"):
+            sqrt("25")
+
+    def test_sqrt_negative_number(self):
+        with pytest.raises(
+            ValueError,
+            match="Cannot calculate square root of a negative number",
+        ):
+            sqrt(-4)
